@@ -402,7 +402,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--skip-tomo', action='store_true',
                         help='Skip tomography if clinic.pickle already exists')
-    parser.add_argument('--')
+    # parser.add_argument('--')
     args, _ = parser.parse_known_args()
 
     rclpy.init()
