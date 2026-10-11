@@ -1,15 +1,25 @@
 #!/bin/bash
 # Launches the PCT planner node + RViz2 together.
-# Usage: ./launch_ros2.sh [--skip-tomo]
+# Usage: ./launch_ros2.sh [--scene NAME] [--skip-tomo] [--pcd FILE] [--tomo STEM]
+#   e.g. ./launch_ros2.sh --scene Building
+#        ./launch_ros2.sh --list-scenes
+#
+# All arguments are forwarded verbatim to run_ros2_interactive.py.
 
 set -e
 source /opt/ros/humble/setup.bash
 
 ROOT=$(cd $(dirname "$0"); pwd)
-ARGS="$@"
+
+# --list-scenes is a one-shot query: run it directly, no RViz.
+for arg in "$@"; do
+    if [ "$arg" = "--list-scenes" ]; then
+        exec python3 "$ROOT/run_ros2_interactive.py" "$@"
+    fi
+done
 
 # Launch the planner node in the background
-python3 "$ROOT/run_ros2_interactive.py" $ARGS &
+python3 "$ROOT/run_ros2_interactive.py" "$@" &
 NODE_PID=$!
 
 # Wait for the node to be ready (it logs "Interactive ROS2 mode" when done)

@@ -132,6 +132,18 @@ rviz2 -d rsc/rviz/pct_ros2.rviz
 ./launch_ros2.sh --skip-tomo
 ```
 
+### Other scenes
+
+The interactive node is not tied to the clinic cloud — pass `--scene` (any name from `tomography/config`, case-insensitive):
+
+```bash
+./launch_ros2.sh --scene Building
+./launch_ros2.sh --scene Spiral --skip-tomo
+python3 run_ros2_interactive.py --list-scenes     # what's available / which PCD is present
+```
+
+The PCD file, tomogram pickle and output trajectory are all derived from the scene config (`<pcd stem>.pickle`, `<pcd stem>_traj.npy`). Override with `--pcd` / `--tomo` if you want something else.
+
 ### 4. Pick start and end points in RViz2
 
 1. Select the **"Publish Point"** tool from the toolbar.
@@ -156,8 +168,8 @@ rviz2 -d rsc/rviz/pct_ros2.rviz
 
 | Script | Description |
 |--------|-------------|
-| `run_ros2_interactive.py` | Main interactive ROS2 node. Subscribes to `/clicked_point`, plans on each start+end pair, publishes path and markers. |
-| `launch_ros2.sh` | Launches `run_ros2_interactive.py` in the background and opens RViz2. Cleans up both processes on exit. |
+| `run_ros2_interactive.py` | Main interactive ROS2 node. `--scene NAME` picks the scene (default Clinic); subscribes to `/clicked_point`, plans on each start+end pair, publishes path and markers. `--list-scenes` shows availability. |
+| `launch_ros2.sh` | Launches `run_ros2_interactive.py` in the background and opens RViz2. Forwards all args (`--scene`, `--skip-tomo`, …). Cleans up both processes on exit. |
 | `tomography/scripts/run_standalone.py` | Runs tomography without ROS. Saves pickle to `rsc/tomogram/`. |
 | `tomography/scripts/visualize_tomogram.py` | Dumps a saved tomogram: **3D view (default)** — layers drawn at their floor height, colored by cost, with an optional trajectory overlay; `--2d` gives per-layer panels (cost / floor / clearance). `--pcd` also writes a colored point cloud. No ROS/GPU needed. |
 | `planner/scripts/plan_standalone.py` | Runs the planner without ROS on a saved tomogram. |

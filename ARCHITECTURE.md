@@ -186,7 +186,7 @@ unique   = (mask_l_g | mask_l_t) & mask_u_g & mask_t
 | `planner/lib/src/a_star/a_star_search.*` | **多层 A\***：`Search()` + `DecideLayer()` |
 | `planner/lib/src/ele_planner/offline_ele_planner.*` | 顶层编排：`InitMap` → A\* → GPMP |
 | `planner/lib/src/trajectory_optimization/` | GPMP 因子图优化（GTSAM） |
-| `run_ros2_interactive.py` | 本 fork 新增：RViz2 点击起终点、在线规划 |
+| `run_ros2_interactive.py` | 本 fork 新增：RViz2 点击起终点、在线规划。`--scene NAME` 支持任意场景（默认 Clinic），PCD/pickle/轨迹文件名均从场景配置派生 |
 
 调用链（记住这条主线）：
 ```
