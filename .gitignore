@@ -1,0 +1,15 @@
+*.stl
+*.obj
+*.ply
+*.pcd
+*.npy
+*.pyc
+*.pickle
+*.so
+
+# generated tomogram visualization output
+rsc/tomogram/vis_*/
+
+__pycache__/
+build/
+install/
