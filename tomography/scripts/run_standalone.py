@@ -103,6 +103,6 @@ def run(scene_name):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--scene', type=str, default='Clinic',
-                        help='Scene name: Clinic, Building, Plaza')
+                        help='Scene name: Clinic, Spiral, Building, Plaza')
     args = parser.parse_args()
     run(args.scene)
